@@ -10,7 +10,7 @@ NUM_TRACKS = 10**1
 
 def populate_db():
 
-    DB_URI = os.environ.get('DB_URI')
+    DB_URI = #os.environ.get('DB_URI')
 
     connect(db=DB_URI)
 

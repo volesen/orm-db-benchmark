@@ -25,7 +25,8 @@ class Album(Base):
     title = Column(String(255), default=faker.name)
     price = Column(Integer, default=random.randint(5, 9))
 
-    author_id = Column(Integer, ForeignKey('author.id'))
+    author_id = Column(Integer, ForeignKey('author.id'), index=True)
+
     author = relationship("Author", back_populates="albums")
 
     tracks = relationship("Track", back_populates="album")
@@ -37,5 +38,5 @@ class Track(Base):
     title = Column(String(255), default=faker.name)
     unit_price = Column(Float, default=0.99)
 
-    album_id = Column(Integer, ForeignKey('album.id'))
+    album_id = Column(Integer, ForeignKey('album.id'), index=True)
     album = relationship("Album", back_populates="tracks")

@@ -1,0 +1,29 @@
+DEBUG:app.sqltime:Start Query: PRAGMA table_info("author")
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000398
+DEBUG:app.sqltime:Start Query: PRAGMA table_info("album")
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000073
+DEBUG:app.sqltime:Start Query: PRAGMA table_info("track")
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000077
+DEBUG:app.sqltime:Start Query: SELECT author.id AS author_id, author.name AS author_name, author.publisher AS author_publisher, author.address AS author_address
+FROM author
+ LIMIT ? OFFSET ?
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000302
+DEBUG:app.sqltime:Start Query: SELECT author.id AS author_id, author.name AS author_name, author.publisher AS author_publisher, author.address AS author_address
+FROM author
+ LIMIT ? OFFSET ?
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000105
+DEBUG:app.sqltime:Start Query: SELECT author.id AS author_id, author.name AS author_name, author.publisher AS author_publisher, author.address AS author_address
+FROM author
+ LIMIT ? OFFSET ?
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000074
+DEBUG:app.sqltime:Start Query: SELECT author.id AS author_id, author.name AS author_name, author.publisher AS author_publisher, author.address AS author_address
+FROM author
+ LIMIT ? OFFSET ?
+DEBUG:app.sqltime:Query Complete!
+DEBUG:app.sqltime:Total Time: 0.000138

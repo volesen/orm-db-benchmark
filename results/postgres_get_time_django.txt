@@ -1,0 +1,3 @@
+Get query, time: 11.794650957999693
+
+Average of 10.000

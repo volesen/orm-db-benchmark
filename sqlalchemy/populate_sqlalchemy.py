@@ -12,8 +12,8 @@ NUM_TRACKS = 10**1 * NUM_ALBUMS
 def populate_db():
 
     #DB_URI = os.environ['DB_URI']
-    #engine = create_engine('postgresql://root:password@localhost:5432/test')
-    engine = create_engine('sqlite:///test.db')
+    engine = create_engine('postgresql://root:password@localhost:5432/test')
+    #engine = create_engine('sqlite:///test.db')
 
     # Instantiate session
     session = sessionmaker()

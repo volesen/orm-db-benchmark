@@ -1,0 +1,2 @@
+Sqllite with Sqlchemy (10.000 average)
+Get query, time: 5.789709393000521

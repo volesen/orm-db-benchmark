@@ -1,0 +1,8 @@
+PostgreSQL with Django ORM (average of 10.000 queries)
+Select limit query
+Query size: 100, time: 0.3490409720006937
+Query size: 1000, time: 0.35336835499947483
+Query size: 10000, time: 0.35552496899981634
+Query size: 100000, time: 0.3571189829999639
+FIlter by track id
+Get query, time: 1.4083913370004666

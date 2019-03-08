@@ -1,0 +1,8 @@
+Sqlite with Django ORM (average of 10.000 queries)
+Select limit query
+Query size: 100, time: 0.3428287110000383
+Query size: 1000, time: 0.41044505900026707
+Query size: 10000, time: 0.417061396000463
+Query size: 100000, time: 0.4060949439999604
+FIlter by track id
+Get query, time: 1.3844439920003424
