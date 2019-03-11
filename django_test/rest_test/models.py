@@ -3,6 +3,7 @@ import random
 from django.db import models
 from faker import Faker
 
+
 faker = Faker()
 
 
