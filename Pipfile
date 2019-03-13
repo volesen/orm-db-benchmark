@@ -20,6 +20,7 @@ djangorestframework = "*"
 gunicorn = "*"
 pycurl = "*"
 stringio = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.6"

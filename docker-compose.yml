@@ -18,6 +18,7 @@ services:
 
   flask_mongoengine:
     build: ./flask/mongoengine
+    command: gunicorn -b 0.0.0.0:1000 app:app
     ports:
       - '1000:1000'
     depends_on:
@@ -25,10 +26,39 @@ services:
 
   flask_postgresql:
     build: ./flask/sqlalchemy
+    command: gunicorn -b 0.0.0.0:1001 app:app
     environment:
-      - DB_URI=postgresql://root:password@postgresql:5432/test
+      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
     ports:
       - '1001:1001'
     depends_on:
       - postgresql
+
+  flask_sqlite:
+    build: ./flask/sqlalchemy
+    command: gunicorn -b 0.0.0.0:1002 app:app
+    environment:
+      - DATABASE_URL=sqlite:///db/test.db
+    volumes:
+      - ./sqlite:/app/db
+    ports:
+      - '1002:1002'
     
+  django_postgresql:
+    build: ./django_test
+    command: gunicorn -b 0.0.0.0:1003 django_test.wsgi
+    environment:
+      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
+    ports:
+      - '1003:1003'
+
+  django_sqlite:
+    build: ./django_test
+    command: gunicorn -b 0.0.0.0:1004 django_test.wsgi
+    environment:
+      - DATABASE_URL=sqlite:///db/test.db
+    volumes:
+      - ./sqlite:/app/db
+    ports:
+      - '1004:1004'
+

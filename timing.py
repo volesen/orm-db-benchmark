@@ -12,21 +12,44 @@ from statistics import mean, stdev
 buffer = BytesIO()
 
 
-URL = 'http://localhost:8000/paginate/2'
+urls = [
+    'http://localhost:1000/paginate/1',
+    'http://localhost:1001/paginate/1',
+    'http://localhost:1002/paginate/1',
+    'http://localhost:1003/authors/',
+    'http://localhost:1004/authors/'
+]
 
 
-request_process_time = []
+def get_mean_time(url, n):
+    '''
+    Measures mean and standard deviation of request process time
 
-for i in range(1, 5):
-    c = pycurl.Curl()
-    c.setopt(c.URL, URL)
-    c.setopt(c.WRITEDATA, buffer)
+    Args:
+        url: endpoint for test
+        n: number of requests
+    Returns:
+        Tuple of mean and std of request process time
+    '''
 
-    c.perform()
-    request_process_time.append( c.getinfo(pycurl.STARTTRANSFER_TIME) - c.getinfo(pycurl.PRETRANSFER_TIME) )
-    print( c.getinfo(pycurl.STARTTRANSFER_TIME) - c.getinfo(pycurl.PRETRANSFER_TIME)  )
-    c.close()
+    req_times = []
 
+    for _ in range(1, n+1):
+        # Setup cURL binding
+        c = pycurl.Curl()
+        c.setopt(c.URL, url)
+        c.setopt(c.WRITEDATA, buffer)
+        c.perform()
 
-print(f'Mean: {mean(request_process_time)}')
-print(f'Std: {stdev(request_process_time)}')
+        # Measure server processing time
+        req_time = c.getinfo(pycurl.STARTTRANSFER_TIME) - \
+            c.getinfo(pycurl.PRETRANSFER_TIME)
+
+        req_times.append(req_time)
+
+        c.close()
+
+    return (mean(req_times), stdev(req_times))
+
+for url in urls:
+    print(get_mean_time(url, 3))
