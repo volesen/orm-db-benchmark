@@ -19,6 +19,7 @@ django = "*"
 djangorestframework = "*"
 gunicorn = "*"
 pycurl = "*"
+stringio = "*"
 
 [requires]
 python_version = "3.6"

@@ -16,3 +16,19 @@ services:
     ports:
     - '5432:5432'
 
+  flask_mongoengine:
+    build: ./flask/mongoengine
+    ports:
+      - '1000:1000'
+    depends_on:
+      - mongodb
+
+  flask_postgresql:
+    build: ./flask/sqlalchemy
+    environment:
+      - DB_URI=postgresql://root:password@postgresql:5432/test
+    ports:
+      - '1001:1001'
+    depends_on:
+      - postgresql
+    

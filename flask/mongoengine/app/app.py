@@ -5,7 +5,7 @@ from flask_mongoengine import MongoEngine
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {
     'db': 'test',
-    'host': 'mongodb://localhost/'
+    'host': 'mongodb://mongodb/'
 }
 
 db = MongoEngine(app)
@@ -46,7 +46,3 @@ def paginate_query(page):
 
     # Return serialized objects
     return jsonify(authors)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

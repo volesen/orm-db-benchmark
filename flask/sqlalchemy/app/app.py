@@ -19,8 +19,6 @@ db = SQLAlchemy(app, model_class=Base)
 ma = Marshmallow(app)
 
 
-
-
 # Define Marshmallow JSON serialization schema
 class TrackSchema(ma.ModelSchema):
     class Meta:
