@@ -9,8 +9,7 @@ from sqlalchemy_model import Base, Author, Album, Track
 
 app = Flask(__name__)
 app.config.update({
-    # os.environ.get('DB_URI'),
-    'SQLALCHEMY_DATABASE_URI': 'postgresql://root:password@localhost:5432/test',
+    'SQLALCHEMY_DATABASE_URI': os.environ.get('DB_URI'),
     'SQLALCHEMY_TRACK_MODIFICATIONS': False
 })
 
@@ -19,22 +18,28 @@ app.config.update({
 db = SQLAlchemy(app, model_class=Base)
 ma = Marshmallow(app)
 
+
+
+
 # Define Marshmallow JSON serialization schema
-
-
-class AuthorSchema(ma.ModelSchema):
+class TrackSchema(ma.ModelSchema):
     class Meta:
-        model = Author
+        model = Track
 
 
 class AlbumSchema(ma.ModelSchema):
     class Meta:
         model = Album
 
+    tracks = ma.Nested(TrackSchema, many=True)
 
-class TrackSchema(ma.ModelSchema):
+
+class AuthorSchema(ma.ModelSchema):
     class Meta:
-        model = Track
+        model = Author
+        #fields = ('id', 'name', 'publisher', 'address')
+
+    albums = ma.Nested(AlbumSchema, many=True)
 
 
 author_schema = AuthorSchema()
@@ -45,10 +50,10 @@ track_schema = TrackSchema()
 @app.route('/serialize/<int:amount>')
 def serliaze_query(amount):
     # Query given amount of objects to serialize
-    tracks = Track.query.limit(amount).all()
+    authors = Author.query.limit(amount).all()
 
     # Return serialized objects
-    serialized = track_schema.jsonify(tracks, many=True)
+    serialized = author_schema.jsonify(authors, many=True)
 
     return serialized
 
@@ -57,13 +62,9 @@ def serliaze_query(amount):
 def paginate_query(page):
 
     # Query objects by pagination
-    tracks = Track.query.paginate(page, per_page=10).items
+    authors = Author.query.paginate(page, per_page=10).items
 
     # Return serialized objects
-    serialized = track_schema.jsonify(tracks, many=True)
+    serialized = author_schema.jsonify(authors, many=True)
 
     return serialized
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
