@@ -1,6 +1,8 @@
 from rest_test.models import Author, Album, Track
 from rest_framework import serializers
 
+# http://ses4j.github.io/2015/11/23/optimizing-slow-django-rest-framework-performance/
+# Eager lodaing
 
 class TrackSerializer(serializers.ModelSerializer):
     class Meta:

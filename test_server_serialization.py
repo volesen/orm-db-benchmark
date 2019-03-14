@@ -1,6 +1,6 @@
 '''
-Testing script measuring time for processing and serialization to client for a server
-Several metrics are measured using cURL inspired by
+Testing script measuring time (an estimate) for processing and serialization of DB content for a server
+Several metrics are measured using cURL through pycURL inspired by
 - http://blog.cloudflare.com/a-question-of-timing/
 - http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
 '''
@@ -10,15 +10,6 @@ from io import BytesIO
 from statistics import mean, stdev
 
 buffer = BytesIO()
-
-
-urls = [
-    'http://localhost:1000/paginate/1',
-    'http://localhost:1001/paginate/1',
-    'http://localhost:1002/paginate/1',
-    'http://localhost:1003/authors/',
-    'http://localhost:1004/authors/'
-]
 
 
 def get_mean_time(url, n):
@@ -51,5 +42,16 @@ def get_mean_time(url, n):
 
     return (mean(req_times), stdev(req_times))
 
+
+urls = [
+    'http://localhost:1000/paginate/1',
+    'http://localhost:1001/paginate/1',
+    'http://localhost:1002/paginate/1',
+    'http://localhost:1003/authors/',
+    'http://localhost:1004/authors/'
+]
+
+
+# Measure server request process time for given endpoints
 for url in urls:
     print(get_mean_time(url, 3))

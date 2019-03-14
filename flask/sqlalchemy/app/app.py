@@ -35,7 +35,6 @@ class AlbumSchema(ma.ModelSchema):
 class AuthorSchema(ma.ModelSchema):
     class Meta:
         model = Author
-        #fields = ('id', 'name', 'publisher', 'address')
 
     albums = ma.Nested(AlbumSchema, many=True)
 

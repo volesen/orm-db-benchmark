@@ -16,7 +16,7 @@ class Author(Base):
     publisher = Column(String(255), default=faker.company)
     address = Column(String(255), default=faker.address)
 
-    albums = relationship("Album", back_populates="author")
+    albums = relationship("Album", back_populates="author", lazy='joined')
 
 
 class Album(Base):
@@ -27,9 +27,9 @@ class Album(Base):
 
     author_id = Column(Integer, ForeignKey('author.id'), index=True)
 
-    author = relationship("Author", back_populates="albums")
+    author = relationship("Author", back_populates="albums", lazy='joined')
 
-    tracks = relationship("Track", back_populates="album")
+    tracks = relationship("Track", back_populates="album", lazy='joined')
 
 
 class Track(Base):
@@ -39,4 +39,4 @@ class Track(Base):
     unit_price = Column(Float, default=0.99)
 
     album_id = Column(Integer, ForeignKey('album.id'), index=True)
-    album = relationship("Album", back_populates="tracks")
+    album = relationship("Album", back_populates="tracks", lazy='joined')
