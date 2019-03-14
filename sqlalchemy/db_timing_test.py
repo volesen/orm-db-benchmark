@@ -44,5 +44,4 @@ def make_query(size):
         .all()
 
 
-
 db_session.remove()
