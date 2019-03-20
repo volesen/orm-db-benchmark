@@ -1,3 +1,4 @@
+from data.models import Author, Album, Track
 import os
 import timeit
 import django
@@ -5,19 +6,19 @@ import django
 # Django specific settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
-# Django 
+# Django project setup
 django.setup()
-
-# Application specific imports
-from data.models import Author, Album, Track
 
 query_size = [10**2, 10**3, 10**4, 10**5]
 
+
 def make_query(size):
+    # Forcing serialization to list
     list(Track.objects.select_related().all()[0:size])
 
 
 def get_query():
+    # Forcing serialization to list
     list(Author.objects.filter(albums__tracks__id=1))
 
 
