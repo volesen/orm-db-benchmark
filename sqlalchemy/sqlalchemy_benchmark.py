@@ -4,10 +4,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy_model import Base, Author, Album, Track
 
-engine = create_engine(
-    'postgresql://root:password@localhost:5432/test', echo=False)
+#engine = create_engine(
+#    'postgresql://root:password@localhost:5432/test', echo=False)
 
-#engine = create_engine('sqlite:///test.db', echo=False)
+engine = create_engine('sqlite:///test.db', echo=False)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
@@ -32,11 +32,13 @@ def make_query(size):
 
 
 def contains_query():
-    pass
+    db_session.query(Author)\
+        .filter(Author.name.contains('John'))
 
 
 def like_query():
-    pass
+    db_session.query(Author)\
+        .filter(Author.name.like('John%'))
 
 
 DB_NAME = 'sqlite3'
