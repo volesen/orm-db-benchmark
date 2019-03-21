@@ -1,22 +1,22 @@
 import random
 
 from faker import Faker
-from mongoengine import Document, EmbeddedDocument, StringField, IntField, FloatField, EmbeddedDocumentListField
+from mongoengine import Document, EmbeddedDocument, StringField, IntField, FloatField, ListField, ReferenceField
 
 
 faker = Faker()
 
-# TODO: Try with Refrence fields
-class Track(EmbeddedDocument):
+
+class Track(Document):
     title = StringField(default=faker.name)
     unit_price = FloatField(default=0.99)
 
 
-class Album(EmbeddedDocument):
+class Album(Document):
     title = StringField(default=faker.name)
     price = IntField(default=random.randint(5, 9))
 
-    tracks = EmbeddedDocumentListField(Track)
+    tracks = ListField(ReferenceField(Track))
 
 
 class Author(Document):
@@ -24,8 +24,4 @@ class Author(Document):
     publisher = StringField(default=faker.company)
     address = StringField(default=faker.address)
 
-    albums = EmbeddedDocumentListField(Album)
-
-
-if __name__ == '__main__':
-    pass
+    albums = ListField(ReferenceField(Album))

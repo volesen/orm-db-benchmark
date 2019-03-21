@@ -1,4 +1,3 @@
-from data.models import Author, Album, Track
 import os
 import timeit
 import django
@@ -9,27 +8,52 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 # Django project setup
 django.setup()
 
-query_size = [10**2, 10**3, 10**4, 10**5]
+# Import models
+from data.models import Author, Album, Track
 
 
-def make_query(size):
-    # Forcing serialization to list
-    list(Track.objects.select_related().all()[0:size])
+# https://docs.djangoproject.com/en/dev/ref/models/querysets/#when-querysets-are-evaluated
+def limit_query(size):
+    # Forcing sevaluation of QuerySet with len
+    len(Track.objects.select_related()[0:size])
 
 
 def get_query():
     # Forcing serialization to list
-    list(Author.objects.filter(albums__tracks__id=1))
+    Author.objects.filter(albums__tracks__id=1).first()
 
 
-print('PostgreSQL with Django ORM (average of 10.000 queries)')
-print('Select limit query')
+def contain_query():
+    Author.objects.filter(name__contains='John').first()
+
+
+def like_query():
+    Author.objects.filter(name__startswith='John').first()
+
+
+query_size = [10**2, 10**3, 10**4, 10**5]
+
+print(f'PostgreSQL with Django ORM (10.000 total)')
+
+print('Query size benchmark')
 for size in query_size:
-    timer = timeit.Timer("make_query(size)", globals=globals())
+    timer = timeit.Timer("limit_query(size)", globals=globals())
     time = timer.timeit(number=10000)
     print(f'Query size: {size}, time: {time}')
 
-print('FIlter by track id')
+print('Get query benchmark')
 timer = timeit.Timer("get_query()", globals=globals())
+time = timer.timeit(number=10000)
+print(f'Get query, time: {time}')
+
+
+print('"contains" query benchmark')
+timer = timeit.Timer("contain_query()", globals=globals())
+time = timer.timeit(number=10000)
+print(f'Get query, time: {time}')
+
+
+print('"like" query benchmark')
+timer = timeit.Timer("like_query()", globals=globals())
 time = timer.timeit(number=10000)
 print(f'Get query, time: {time}')

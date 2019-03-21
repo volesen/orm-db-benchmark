@@ -1,7 +1,7 @@
 import os
 
 from mongoengine import connect
-from mongoengine_model import Track, Album, Author
+from mongoengine_model_embedding import Track, Album, Author
 
 NUM_AUTHORS = 10**2
 NUM_ALBUMS = 10**2

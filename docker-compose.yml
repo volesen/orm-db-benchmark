@@ -5,7 +5,7 @@ services:
   mongodb:
     build: ./mongodb
     ports:
-    - '27017:27017'
+      - '27017:27017'
 
   postgresql:
     build: ./postgresql
@@ -14,8 +14,15 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test
     ports:
-    - '5432:5432'
+      - '5432:5432'
 
+#  elacsticsearch:
+#    image: 
+#    environment:
+#      - discovery.type=single-node
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
 
   flask_mongoengine:
     build: ./flask/mongoengine
