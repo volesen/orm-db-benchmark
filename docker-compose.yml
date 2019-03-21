@@ -2,10 +2,15 @@ version: '3'
 
 services:  
 
-  mongodb:
-    build: ./mongodb
-    ports:
-      - '27017:27017'
+  mongodb_embedding:
+    build: ./mongodb/embedding
+    logging:
+      driver: none
+
+  mongodb_reference:
+    build: ./mongodb/reference
+    logging:
+      driver: none
 
   postgresql:
     build: ./postgresql
@@ -13,8 +18,6 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test
-    ports:
-      - '5432:5432'
 
 #  elacsticsearch:
 #    image: 
@@ -24,49 +27,59 @@ services:
 #      - "9200:9200"
 #      - "9300:9300"
 
-  flask_mongoengine:
-    build: ./flask/mongoengine
+  flask_mongoengine_embedding:
+    build: ./flask/mongoengine/embedding
     command: gunicorn -b 0.0.0.0:1000 app:app
     ports:
       - '1000:1000'
     depends_on:
-      - mongodb
+      - mongodb_embedding
+
+
+  flask_mongoengine_reference:
+    build: ./flask/mongoengine/reference
+    command: gunicorn -b 0.0.0.0:1001 app:app
+    ports:
+      - '1001:1001'
+    depends_on:
+      - mongodb_reference
+
 
   flask_postgresql:
     build: ./flask/sqlalchemy
-    command: gunicorn -b 0.0.0.0:1001 app:app
+    command: gunicorn -b 0.0.0.0:1002 app:app
     environment:
       - DATABASE_URL=postgresql://root:password@postgresql:5432/test
     ports:
-      - '1001:1001'
+      - '1002:1002'
     depends_on:
       - postgresql
 
   flask_sqlite:
     build: ./flask/sqlalchemy
-    command: gunicorn -b 0.0.0.0:1002 app:app
+    command: gunicorn -b 0.0.0.0:1003 app:app
     environment:
       - DATABASE_URL=sqlite:///db/test.db
     volumes:
       - ./sqlite:/app/db
     ports:
-      - '1002:1002'
+      - '1003:1003'
     
   django_postgresql:
     build: ./django_test
-    command: gunicorn -b 0.0.0.0:1003 django_test.wsgi
+    command: gunicorn -b 0.0.0.0:1004 django_test.wsgi
     environment:
       - DATABASE_URL=postgresql://root:password@postgresql:5432/test
     ports:
-      - '1003:1003'
+      - '1004:1004'
 
   django_sqlite:
     build: ./django_test
-    command: gunicorn -b 0.0.0.0:1004 django_test.wsgi
+    command: gunicorn -b 0.0.0.0:1005 django_test.wsgi
     environment:
       - DATABASE_URL=sqlite:///db/test.db
     volumes:
       - ./sqlite:/app/db
     ports:
-      - '1004:1004'
+      - '1005:1005'
 

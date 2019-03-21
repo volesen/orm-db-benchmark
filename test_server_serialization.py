@@ -44,11 +44,12 @@ def get_mean_time(url, n):
 
 
 endpoints = {
-    'flask_mongoengine': 'http://localhost:1000/paginate/1',
-    'flask_postgresql': 'http://localhost:1001/paginate/1',
-    'flask_sqlite': 'http://localhost:1002/paginate/1',
-    'django_postgresql': 'http://localhost:1003/authors/',
-    'django_sqlite': 'http://localhost:1004/authors/'
+    'flask_mongoengine_embedding': 'http://localhost:1000/paginate/1',
+    'flask_mongoengine_reference': 'http://localhost:1001/paginate/1',
+    'flask_postgresql': 'http://localhost:1002/paginate/1',
+    'flask_sqlite': 'http://localhost:1003/paginate/1',
+    'django_postgresql': 'http://localhost:1004/authors/',
+    'django_sqlite': 'http://localhost:1005/authors/'
 }
 
 
@@ -56,6 +57,6 @@ endpoints = {
 N = 3
 for kv in endpoints.items():
     service, endpoint = kv
-    
+
     time, std = get_mean_time(endpoint, N)
-    print(f'Service: {service}, time {time}, std {std} (average of {N}) ')
+    print(f'Service: {service}, time {time}, std {std} (average of {N})')
