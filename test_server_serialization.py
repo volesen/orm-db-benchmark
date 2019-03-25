@@ -54,9 +54,10 @@ endpoints = {
 
 
 # Measure server request process time for given endpoints
-N = 3
+N = 10
 for kv in endpoints.items():
     service, endpoint = kv
 
     time, std = get_mean_time(endpoint, N)
+
     print(f'Service: {service}, time {time}, std {std} (average of {N})')
