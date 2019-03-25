@@ -1,39 +1,35 @@
-import os
+import re
 import timeit
-import django
 
-# Django specific settings
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+from mongoengine import connect
+from mongoengine_model_refrence import Author, Album, Track
 
-# Django project setup
-django.setup()
+connect('test', host='localhost', port=27017)
 
-# Import models
-from data.models import Author, Album, Track
+regex = re.compile('.*bob.*')
 
 
-# https://docs.djangoproject.com/en/dev/ref/models/querysets/#when-querysets-are-evaluated
 def limit_query(size):
-    # Forcing sevaluation of QuerySet with len
-    repr(Track.objects.select_related()[0:size])
+    Author.objects.limit(size)
 
 
 def get_query():
-    # Forcing serialization to list
-    Author.objects.filter(albums__tracks__id=1).first()
+    # As model embedding is used, filtering by id cant be used
+    Author.objects.filter(albums__tracks__match={
+                          'title': 'Vincent Phillips'})
 
 
 def contain_query():
-    Author.objects.filter(name__contains='John').first()
+    Author.objects.filter(name__contains='John')
 
 
 def like_query():
-    Author.objects.filter(name__startswith='John').first()
+    Author.objects.filter(name__startswith='John')
 
 
 query_size = [10**2, 10**3, 10**4, 10**5]
 
-print(f'PostgreSQL with Django ORM (10.000 total)')
+print(f'MongoDB benchmark with Mongoengine (10.000 total)')
 
 print('Query size benchmark')
 for size in query_size:
@@ -58,4 +54,5 @@ timer = timeit.Timer("like_query()", globals=globals())
 time = timer.timeit(number=10000)
 print(f'Get query, time: {time}')
 
-print(repr(Track.objects.select_related()[0:size]))
+print(Author.objects.filter(albums__tracks__match={
+    'title': 'Curtis Myers'}))

@@ -19,6 +19,8 @@ For each ORM and DB pair (excluding Django ORM and MonoDB) the following queires
 - Text search with "contains" query
 - Text search with "like" query
 
+For Django ORM, the Queryset object is forced to evaluate by 'repr(query)'
+
 The time spent on DB-interactions is observed in DB-logs, whereas the ORM/ODM serialization (and DB-interactions) is measured with the `timeit` python module.
 The time for DB-interactions is not subtracted, as different ORM/ODM will not necessarily do operations by identical SQL queries. Therefore it is relevant to measure and take this into account.
 

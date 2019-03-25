@@ -12,7 +12,7 @@ services:
     logging:
       driver: none
     ports:
-        - '27017:27017'
+        - 27017:27017
 
   postgresql:
     build: ./postgresql
@@ -20,7 +20,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test
-
+    ports:
+      - 5432:5432
 
   flask_mongoengine_embedding:
     build: ./flask/mongoengine/embedding
