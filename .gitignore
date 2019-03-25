@@ -1,2 +1,15 @@
-.vscode/*
-.history
+# Ignore files with below extensions
+*.pyc
+*.pyo
+*.log
+*.lock
+Pipfile.lock
+
+# Ignore below directories
+.pytest_cache/
+dist/
+flask_tus.egg-info/
+build/
+venv/
+__pycache__/
+.vscode/
