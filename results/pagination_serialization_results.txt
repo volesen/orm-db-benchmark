@@ -1,5 +1,0 @@
-Service: flask_mongoengine, time 1.2689256666666666, std 0.08915874701527231 (average of 3) 
-Service: flask_postgresql, time 1.232021, std 0.028700194267635284 (average of 3) 
-Service: flask_sqlite, time 1.2980353333333334, std 0.052778651757441945 (average of 3) 
-Service: django_postgresql, time 8.993369999999999, std 0.25712021039000377 (average of 3) 
-Service: django_sqlite, time 8.986509, std 0.14774909669097788 (average of 3) 

@@ -11,6 +11,8 @@ services:
     build: ./mongodb/reference
     logging:
       driver: none
+    ports:
+        - '27017:27017'
 
   postgresql:
     build: ./postgresql
@@ -19,13 +21,6 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=test
 
-#  elacsticsearch:
-#    image: 
-#    environment:
-#      - discovery.type=single-node
-#    ports:
-#      - "9200:9200"
-#      - "9300:9300"
 
   flask_mongoengine_embedding:
     build: ./flask/mongoengine/embedding

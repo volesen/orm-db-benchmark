@@ -2,7 +2,7 @@ import re
 import timeit
 
 from mongoengine import connect
-from mongoengine_model import Author, Album, Track
+from mongoengine_model_refrence import Author, Album, Track
 
 connect('test', host='localhost', port=27017)
 
@@ -53,3 +53,6 @@ print('"like" query benchmark')
 timer = timeit.Timer("like_query()", globals=globals())
 time = timer.timeit(number=10000)
 print(f'Get query, time: {time}')
+
+print(Author.objects.filter(albums__tracks__match={
+    'title': 'Curtis Myers'}))
