@@ -17,8 +17,6 @@ Base.metadata.create_all(bind=engine)
 query_size = [10**2, 10**3, 10**4, 10**5]
 
 
-
-
 def limit_query(size):
     db_session.query(Author)\
         .limit(size)\
@@ -33,12 +31,12 @@ def get_query():
 
 def contains_query():
     db_session.query(Author)\
-        .filter(Author.name.contains('John')).all()
+        .filter(Author.name.contains('John')).first()
 
 
 def like_query():
     db_session.query(Author)\
-        .filter(Author.name.like('John%')).all()
+        .filter(Author.name.like('John%')).first()
 
 
 DB_NAME = 'sqlite3'

@@ -21,6 +21,7 @@ gunicorn = "*"
 pycurl = "*"
 stringio = "*"
 dj-database-url = "*"
+peewee = "*"
 
 [requires]
 python_version = "3.6"

@@ -5,6 +5,7 @@ from rest_framework import serializers
 # Eager lodaing
 
 class TrackSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Track
         fields = '__all__'

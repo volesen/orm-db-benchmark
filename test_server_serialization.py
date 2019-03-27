@@ -1,6 +1,6 @@
 '''
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
-Several metrics are measured using cURL through pycURL inspired by
+The time spent is measured using cURL through pycURL inspired by
 - http://blog.cloudflare.com/a-question-of-timing/
 - http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
 '''
@@ -54,7 +54,7 @@ endpoints = {
 
 
 # Measure server request process time for given endpoints
-N = 10
+N = 3
 for kv in endpoints.items():
     service, endpoint = kv
 

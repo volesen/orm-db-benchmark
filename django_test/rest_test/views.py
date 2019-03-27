@@ -5,25 +5,15 @@ from rest_test.serializers import AuthorSerializer, AlbumSerializer, TrackSerial
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-
-    queryset = Author.objects.all()
+    queryset = Author.objects.prefetch_related('albums', 'albums__tracks')
     serializer_class = AuthorSerializer
 
 
 class AlbumViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Album.objects.all()
+    queryset = Album.objects.prefetch_related('tracks')
     serializer_class = AlbumSerializer
 
 
 class TrackViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     queryset = Track.objects.all()
     serializer_class = TrackSerializer
