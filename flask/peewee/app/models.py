@@ -4,12 +4,12 @@ from peewee import Model, IntegerField, CharField, ForeignKeyField, FloatField, 
 from playhouse.db_url import connect
 
 
-db = connect(os.environ.get('DATABASE_URL'))
+database = connect(os.environ.get('DATABASE_URL'))
 
 
 class BaseModel(Model):
     class Meta:
-        database = db
+        database = database
         table_name = 'author'
 
 
