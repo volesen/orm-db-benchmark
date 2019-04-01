@@ -26,7 +26,6 @@ class Album(Base):
     price = Column(Integer, default=random.randint(5, 9))
 
     author_id = Column(Integer, ForeignKey('author.id'), index=True)
-
     author = relationship("Author", back_populates="albums", lazy='joined')
 
     tracks = relationship("Track", back_populates="album", lazy='joined')

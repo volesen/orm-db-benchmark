@@ -7,36 +7,30 @@ from playhouse.db_url import connect
 db = connect(os.environ.get('DATABASE_URL'))
 
 
-class Author(Model):
-    id = IntegerField(primary_key=True)
-    name = CharField(max_length=255)
-    publisher = CharField(max_length=255)
-    address = CharField(max_length=255)
-    
+class BaseModel(Model):
     class Meta:
         database = db
         table_name = 'author'
 
 
-class Album(Model):
+class Author(BaseModel):
+    id = IntegerField(primary_key=True)
+    name = CharField(max_length=255)
+    publisher = CharField(max_length=255)
+    address = CharField(max_length=255)
+
+
+class Album(BaseModel):
     id = IntegerField(primary_key=True)
     title = CharField(max_length=255)
     price = IntegerField()
 
     author = ForeignKeyField(Author, backref='albums')
 
-    class Meta:
-        database = db
-        table_name = 'album'
 
-
-class Track(Model):
+class Track(BaseModel):
     id = IntegerField(primary_key=True)
     title = CharField(max_length=255)
     unit_price = FloatField()
 
     album = ForeignKeyField(Album, backref='tracks')
-
-    class Meta:
-        database = db
-        table_name = 'track'

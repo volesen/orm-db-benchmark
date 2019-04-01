@@ -25,8 +25,9 @@ app = Flask(__name__)
 @app.route('/serialize/<int:amount>')
 def serlialize_query(amount):
     # Query given amount of objects to serialize
-    query = prefetch(Author.select().limit(amount), Album.select())
+    author_query = Author.select().limit(amount)
 
+    query = prefetch(author_query, Album.select())
 
     # Return serialized objects
     authors = author_schema.dumps(query)
@@ -37,7 +38,9 @@ def serlialize_query(amount):
 @app.route('/paginate/<int:page>')
 def paginate_query(page):
     # Query objects by pagination
-    query = prefetch(Author.select().paginate(page, 10), Album.select(), Track.select())
+    author_query = Author.select().paginate(page, 10)
+    
+    query = prefetch(author_query, Album.select(), Track.select())
 
     # Return serialized objects
     authors = author_schema.dumps(query)

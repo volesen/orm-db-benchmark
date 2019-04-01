@@ -1,7 +1,7 @@
 import timeit
 import logging
 
-from peewee import JOIN
+from peewee import JOIN, fn
 from peewee_model import Author, Album, Track
 
 # Setup logging to monitor SQL queries
@@ -57,10 +57,12 @@ print(f'Get query, time: {time}')
 
 '''
 
-first_author = (
-                Author.
-                select(Author, Album).
-                join(Album, JOIN.LEFT_OUTER)
-                )
+query = (Author
+         .select(Author.name, Author.albums, Album)
+         .join(Album, JOIN.LEFT_OUTER)
+         .join(Track, JOIN.LEFT_OUTER)
+         )
 
-print(list(first_author[0].albums))
+
+for author in query[0:9]:
+    print(author.name, list(author.albums[0:2]))

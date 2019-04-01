@@ -46,11 +46,11 @@ def get_mean_time(url, n):
 endpoints = {
     'flask_mongoengine_embedding': 'http://localhost:1000/paginate/1',
     'flask_mongoengine_reference': 'http://localhost:1001/paginate/1',
-    'flask_postgresql': 'http://localhost:1002/paginate/1',
-    'flask_sqlite': 'http://localhost:1003/paginate/1',
+    'flask_sqlalchemy_postgresql': 'http://localhost:1002/paginate/1',
+    'flask_sqlalchemy_sqlite': 'http://localhost:1003/paginate/1',
+    'flask_peewee_postgresql': 'http://localhost:1006/paginate/1'
     'django_postgresql': 'http://localhost:1004/authors/',
     'django_sqlite': 'http://localhost:1005/authors/',
-    'flask_peewee_postgresql': 'http://localhost:1006/paginate/1'
 }
 
 
