@@ -8,11 +8,6 @@ from peewee_model import Author, Album, Track
 from serializer import AuthorSchema, AlbumSchema, TrackSchema
 
 
-logger = logging.getLogger('peewee')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
-
-
 author_schema = AuthorSchema(many=True)
 album_schema = AlbumSchema()
 track_schema = TrackSchema()
@@ -39,7 +34,7 @@ def serlialize_query(amount):
 def paginate_query(page):
     # Query objects by pagination
     author_query = Author.select().paginate(page, 10)
-    
+
     query = prefetch(author_query, Album.select(), Track.select())
 
     # Return serialized objects

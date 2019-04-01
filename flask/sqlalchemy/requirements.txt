@@ -1,7 +1,8 @@
 flask == 1.0.2 
 Flask-SQLAlchemy == 2.3.2
 psycopg2-binary == 2.7.7 
-flask-marshmallow == 0.10.0
-marshmallow-sqlalchemy == 0.16.1
+
+
+marshmallow == 2.19.1 
 gunicorn == 19.9.0
 faker == 1.0.2

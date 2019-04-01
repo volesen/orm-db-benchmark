@@ -1,9 +1,12 @@
-import os
-
-from flask import Flask, jsonify
-from marshmallow import fields
+from flask import Flask
 from flask_mongoengine import MongoEngine
-from marshmallow_mongoengine import ModelSchema
+
+from serializer import AuthorSchema, AlbumSchema, TrackSchema
+
+
+author_schema = AuthorSchema(many=True)
+album_schema = AlbumSchema()
+track_schema = TrackSchema()
 
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {
@@ -32,48 +35,24 @@ class Author(db.Document):
     albums = db.ListField(db.ReferenceField(Album))
 
 
-class TrackSchema(ModelSchema):
-    class Meta:
-        model = Track
-
-
-class AlbumSchema(ModelSchema):
-    class Meta:
-        model = Album
-
-    tracks = fields.Nested(TrackSchema, many=True)
-
-
-class AuthorSchema(ModelSchema):
-    class Meta:
-        model = Author
-
-    albums = fields.Nested(AlbumSchema, many=True)
-
-
-track_schema = TrackSchema()
-album_schema = AlbumSchema()
-author_schema = AuthorSchema()
-
-
 # URL Endpoints
 @app.route('/serialize/<int:amount>')
 def serliaze_query(amount):
     # Query given amount of objects to serialize
-    authors = Author.objects.limit(amount)
+    query = Author.objects.limit(amount)
 
     # Return serialized objects
-    serialized = author_schema.dumps(authors, many=True)
+    authors = author_schema.dumps(query)
 
-    return serialized
+    return authors
 
 
 @app.route('/paginate/<int:page>')
 def paginate_query(page):
     # Query objects by pagination
-    authors = Author.objects().paginate(page=page, per_page=10).items
+    query = Author.objects().paginate(page=page, per_page=10).items
 
     # Return serialized objects
-    serialized = author_schema.dumps(authors, many=True)
+    authors = author_schema.dumps(query)
 
-    return serialized
+    return authors
