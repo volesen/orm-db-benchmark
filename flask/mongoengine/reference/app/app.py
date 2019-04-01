@@ -1,12 +1,10 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine
 
-from serializer import AuthorSchema, AlbumSchema, TrackSchema
+from serializer import AuthorSchema
 
 
 author_schema = AuthorSchema(many=True)
-album_schema = AlbumSchema()
-track_schema = TrackSchema()
 
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {

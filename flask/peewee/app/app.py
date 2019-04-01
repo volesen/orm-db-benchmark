@@ -4,13 +4,11 @@ import logging
 from flask import Flask
 from peewee import prefetch
 
-from peewee_model import Author, Album, Track
-from serializer import AuthorSchema, AlbumSchema, TrackSchema
+from models import Author
+from serializer import AuthorSchema
 
 
 author_schema = AuthorSchema(many=True)
-album_schema = AlbumSchema()
-track_schema = TrackSchema()
 
 
 app = Flask(__name__)

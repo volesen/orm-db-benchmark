@@ -11,7 +11,6 @@ class Author(models.Model):
 
     class Meta:
         db_table = 'author'
-        managed = False
 
 
 class Album(models.Model):
@@ -25,7 +24,6 @@ class Album(models.Model):
 
     class Meta:
         db_table = 'album'
-        managed = False
 
 
 class Track(models.Model):
@@ -38,4 +36,3 @@ class Track(models.Model):
 
     class Meta:
         db_table = 'track'
-        managed = False

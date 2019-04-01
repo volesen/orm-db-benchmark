@@ -1,19 +1,18 @@
 import timeit
 import logging
 
-from peewee import JOIN, fn
+from peewee import prefetch
 from peewee_model import Author, Album, Track
 
 # Setup logging to monitor SQL queries
-logger = logging.getLogger('peewee')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
+#logger = logging.getLogger('peewee')
+#logger.addHandler(logging.StreamHandler())
+#logger.setLevel(logging.DEBUG)
 
 
-def limit_query(size):
-    (Author
-     .select()
-     .limit(size))
+def limit_query(amount):
+    pass
+    # prefetch(Author.select().limit(amount), Album.select(), Track.select())
 
 
 def get_query():
@@ -35,7 +34,7 @@ def contains_query():
 query_size = [10**2, 10**3, 10**4, 10**5]
 
 DB_NAME = 'PostgreSQL'
-'''
+
 print(f'{DB_NAME} benchmark with Peewee (10.000 average)')
 
 print('"LIMIT" query benchmark')
@@ -54,15 +53,3 @@ print('"contains" query benchmark')
 timer = timeit.Timer("contains_query()", globals=globals())
 time = timer.timeit(number=10000)
 print(f'Get query, time: {time}')
-
-'''
-
-query = (Author
-         .select(Author.name, Author.albums, Album)
-         .join(Album, JOIN.LEFT_OUTER)
-         .join(Track, JOIN.LEFT_OUTER)
-         )
-
-
-for author in query[0:9]:
-    print(author.name, list(author.albums[0:2]))

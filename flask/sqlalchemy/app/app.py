@@ -1,16 +1,13 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-
-from sqlalchemy_model import Base, Author, Album, Track
-from serializer import AuthorSchema, AlbumSchema, TrackSchema
+from models import Base, Author
+from serializer import AuthorSchema
 
 
 author_schema = AuthorSchema(many=True)
-album_schema = AlbumSchema()
-track_schema = TrackSchema()
 
 
 app = Flask(__name__)
