@@ -10,7 +10,8 @@ from sqlalchemy_model import Base, Author, Album, Track
 app = Flask(__name__)
 app.config.update({
     'SQLALCHEMY_DATABASE_URI': os.environ.get('DATABASE_URL'),
-    'SQLALCHEMY_TRACK_MODIFICATIONS': False
+    'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+    'SQLALCHEMY_ECHO': True
 })
 
 
