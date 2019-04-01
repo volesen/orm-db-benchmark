@@ -1,63 +1,45 @@
 import os
+import logging
 
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask import Flask
+from peewee import prefetch
 
-from sqlalchemy_model import Base, Author, Album, Track
+from peewee_model import Author, Album, Track
+from serializer import AuthorSchema, AlbumSchema, TrackSchema
+
+
+logger = logging.getLogger('peewee')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)
+
+
+author_schema = AuthorSchema(many=True)
+album_schema = AlbumSchema()
+track_schema = TrackSchema()
 
 
 app = Flask(__name__)
 
 
-# Initialize extensions
-db = SQLAlchemy(app, model_class=Base)
-ma = Marshmallow(app)
-
-
-# Define Marshmallow JSON serialization schema
-class TrackSchema(ma.ModelSchema):
-    class Meta:
-        model = Track
-
-
-class AlbumSchema(ma.ModelSchema):
-    class Meta:
-        model = Album
-
-    tracks = ma.Nested(TrackSchema, many=True)
-
-
-class AuthorSchema(ma.ModelSchema):
-    class Meta:
-        model = Author
-
-    albums = ma.Nested(AlbumSchema, many=True)
-
-
-author_schema = AuthorSchema()
-album_schema = AlbumSchema()
-track_schema = TrackSchema()
-
 # URL Endpoints
 @app.route('/serialize/<int:amount>')
-def serliaze_query(amount):
+def serlialize_query(amount):
     # Query given amount of objects to serialize
-    authors = Author.query.limit(amount).all()
+    query = prefetch(Author.select().limit(amount), Album.select())
+
 
     # Return serialized objects
-    serialized = author_schema.jsonify(authors, many=True)
+    authors = author_schema.dumps(query)
 
-    return serialized
+    return authors
 
 
 @app.route('/paginate/<int:page>')
 def paginate_query(page):
-
     # Query objects by pagination
-    authors = Author.query.paginate(page, per_page=10).items
+    query = prefetch(Author.select().paginate(page, 10), Album.select(), Track.select())
 
     # Return serialized objects
-    serialized = author_schema.jsonify(authors, many=True)
+    authors = author_schema.dumps(query)
 
-    return serialized
+    return authors

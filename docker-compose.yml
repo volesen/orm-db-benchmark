@@ -79,3 +79,12 @@ services:
     ports:
       - '1005:1005'
 
+  flask_peewee:
+    build: ./flask/peewee
+    command: gunicorn -b 0.0.0.0:1006 app:app
+    environment:
+      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
+    ports:
+      - '1006:1006'
+    depends_on:
+      - postgresql

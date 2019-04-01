@@ -49,7 +49,8 @@ endpoints = {
     'flask_postgresql': 'http://localhost:1002/paginate/1',
     'flask_sqlite': 'http://localhost:1003/paginate/1',
     'django_postgresql': 'http://localhost:1004/authors/',
-    'django_sqlite': 'http://localhost:1005/authors/'
+    'django_sqlite': 'http://localhost:1005/authors/',
+    'flask_peewee_postgresql': 'http://localhost:1006/paginate/1'
 }
 
 
