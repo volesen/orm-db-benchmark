@@ -60,7 +60,7 @@ print(f'Get query, time: {time}')
 first_author = (
                 Author.
                 select(Author, Album).
-                join(Album, JOIN.OUTER)
+                join(Album, JOIN.LEFT_OUTER)
                 )
 
-print(list(first_author.albums))
+print(list(first_author[0].albums))
