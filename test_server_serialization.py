@@ -71,7 +71,7 @@ endpoints = {
 
 
 # Measure server request process time for given endpoints
-N = 3
+N = 10
 for kv in endpoints.items():
     service, endpoint = kv
 

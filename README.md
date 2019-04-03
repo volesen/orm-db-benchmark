@@ -1,30 +1,48 @@
-# ORM and DB benchmarking methodology
+# ORM benchmarking in a REST server context
+Python REST server "setups" are benchmarked with an emphasises on ORM/ODM and JSON serializers.
+
 In this benchmark the following databases are tested:
 - Sqlite3
 - PostgreSQL 11.1
 - MongoDB 3.4.19
 
-and the following ORM/ODM:
-- Django ORM
-- SQLAlcehmy with Flask
-- Mongoengine with Flask
+and the following ORM/ODM with wrappers:
+- Django ORM with Django Rest Framework
+- Peewee with Flask and Marshmallow
+- Flask_SQLAlcehmy with Flask and Marshmallow
+- Flask_Mongoengine with Flask and Marshmallow
 
-One-to-many relationships are modeled by embedded documents and reference fields for MongoDB.
+For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
+- Serialization of 100, 1,000, 10,000 and 100,000 objects (by a LIMIT query)
+- Serialization of 10 objects by pagination
 
-For each 
+## Benchmarking methodology
 
-For each ORM and DB pair (excluding Django ORM and MonoDB) the following queires are becnhmarked:
-- Limit query ( limit in 10^2,.., 10^5 records)
-- Get query (by id)  <sup id="a1">[1](#f1)</sup>
-- Text search with "contains" query
-- Text search with "like" query
 
-For Django ORM, the Queryset object is forced to evaluate by 'repr(query)'.
+Testing script measuring time (an estimate) for processing and serialization of DB content for a server
+The time spent is measured using cURL through pycURL inspired by
+- http://blog.cloudflare.com/a-question-of-timing/
+- http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
 
-The time spent on DB-interactions is observed in DB-logs, whereas the ORM/ODM serialization (and DB-interactions) is measured with the `timeit` python module.
-The time for DB-interactions is not subtracted, as different ORM/ODM will not necessarily do operations by identical SQL queries. Therefore it is relevant to measure and take this into account.
+
+
+<sup id="a1">[1](#f1)</sup>
+
+### Model
+
+
+One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
+
+## Results
+
+The minimum time gives an estimate for a lower bound on process time.
+
+
+## Conclusion
+
+
+
 
 <hr>
 
-<b id="f1">1</b> For MogoDB with docuemt embedding a filter by "title" field is used [↩](#a1)
-
+<b id="f1">1</b> Footnote [↩](#a1)
