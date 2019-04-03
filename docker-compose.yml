@@ -41,7 +41,7 @@ services:
       - mongodb_reference
 
 
-  flask_postgresql:
+  flask_sqlalchemy_postgresql:
     build: ./flask/sqlalchemy
     command: gunicorn -b 0.0.0.0:1002 app:app
     environment:
@@ -51,7 +51,7 @@ services:
     depends_on:
       - postgresql
 
-  flask_sqlite:
+  flask_sqlalchemy_sqlite:
     build: ./flask/sqlalchemy
     command: gunicorn -b 0.0.0.0:1003 app:app
     environment:
@@ -60,31 +60,43 @@ services:
       - ./sqlite:/app/db
     ports:
       - '1003:1003'
-    
-  django_postgresql:
-    build: ./django_test
-    command: gunicorn -b 0.0.0.0:1004 django_test.wsgi
+
+  flask_peewee_sqlalchemy:
+    build: ./flask/peewee
+    command: gunicorn -b 0.0.0.0:1004 app:app
     environment:
       - DATABASE_URL=postgresql://root:password@postgresql:5432/test
     ports:
       - '1004:1004'
+    depends_on:
+      - postgresql
+
+
+  flask_peewee_sqlite:
+    build: ./flask/peewee
+    command: gunicorn -b 0.0.0.0:1005 app:app
+    environment:
+      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
+    ports:
+      - '1005:1005'
+    depends_on:
+      - postgresql
+
+  django_postgresql:
+    build: ./django_test
+    command: gunicorn -b 0.0.0.0:1006 django_test.wsgi
+    environment:
+      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
+    ports:
+      - '1006:1006'
 
   django_sqlite:
     build: ./django_test
-    command: gunicorn -b 0.0.0.0:1005 django_test.wsgi
+    command: gunicorn -b 0.0.0.0:1007 django_test.wsgi
     environment:
       - DATABASE_URL=sqlite:///db/test.db
     volumes:
       - ./sqlite:/app/db
     ports:
-      - '1005:1005'
+      - '1007:1007'
 
-  flask_peewee:
-    build: ./flask/peewee
-    command: gunicorn -b 0.0.0.0:1006 app:app
-    environment:
-      - DATABASE_URL=postgresql://root:password@postgresql:5432/test
-    ports:
-      - '1006:1006'
-    depends_on:
-      - postgresql

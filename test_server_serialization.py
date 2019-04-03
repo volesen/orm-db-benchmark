@@ -23,7 +23,7 @@ def get_mean_time(url, n):
         Tuple of mean and std of request process time
     '''
 
-    req_times = []
+    results = []
 
     for _ in range(1, n+1):
         # Setup cURL binding
@@ -36,11 +36,26 @@ def get_mean_time(url, n):
         req_time = c.getinfo(pycurl.STARTTRANSFER_TIME) - \
             c.getinfo(pycurl.PRETRANSFER_TIME)
 
-        req_times.append(req_time)
+        results.append(req_time)
 
         c.close()
 
-    return (mean(req_times), stdev(req_times))
+    return results
+
+
+def format_results(results):
+    '''
+    Summary of result vector
+
+    Args:
+        reulsts: result vectors
+
+    Returns:
+        String with min, max, mean and std of reques times
+
+    '''
+
+    return f'min {min(results)}, max {max(results)}, mean {mean(results)}, std {stdev(results)} (average of {len(results)})'
 
 
 endpoints = {
@@ -48,9 +63,10 @@ endpoints = {
     'flask_mongoengine_reference': 'http://localhost:1001/paginate/1',
     'flask_sqlalchemy_postgresql': 'http://localhost:1002/paginate/1',
     'flask_sqlalchemy_sqlite': 'http://localhost:1003/paginate/1',
-    'flask_peewee_postgresql': 'http://localhost:1006/paginate/1',
-    'django_postgresql': 'http://localhost:1004/authors/',
-    'django_sqlite': 'http://localhost:1005/authors/',
+    'flask_peewee_postgresql': 'http://localhost:1004/paginate/1',
+    'flask_peewee_sqlite': 'http://localhost:1005/paginate/1',
+    'django_postgresql': 'http://localhost:1006/authors/',
+    'django_sqlite': 'http://localhost:1007/authors/',
 }
 
 
@@ -59,6 +75,6 @@ N = 3
 for kv in endpoints.items():
     service, endpoint = kv
 
-    time, std = get_mean_time(endpoint, N)
+    results = get_mean_time(endpoint, N)
 
-    print(f'Service: {service}, time {time}, std {std} (average of {N})')
+    print(f'{service}: {format_results(results)}')
