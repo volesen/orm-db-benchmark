@@ -26,14 +26,15 @@ For each ORM/ODM and DB pair, the application is dockerized and served thorugh t
 
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
 The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
-- http://blog.cloudflare.com/a-question-of-timing/
-- http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
+- [Cloudflare - A Question of Timing](http://blog.cloudflare.com/a-question-of-timing/)
+- [Stackocerflow - Calculating Server Processing Time With Curl](http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl)
 
 
 ### Model
 The model used is as follows<sup id="a1">[1](#f1)</sup>
 
 ![UML diagram of model](model.png)
+
 
 ## Results
 
@@ -52,8 +53,14 @@ The results are based on 20 measurements for each stack.
 
 The minimum time gives an estimate for a lower bound on process time.
 
+
+## Remarks
+In terms of loading relationship-heavy data, several techniques can be used
+
+
 ## Conclusion
 
+In terms 
 
 
 
