@@ -9,7 +9,7 @@ In this benchmark the following databases are tested:
 
 and the following ORM/ODM with thin wrappers:
 - [Django 2.1.7](https://djangoproject.com/) with [Django Rest Framework](https://django-rest-framework.org/)
-- [Peewee 3.9.3](gttps://peewee-orm.com/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
+- [Peewee 3.9.3](ttps://peewee-orm.com/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
 - [Flask_SQLAlcehmy 2.3.2](http://flask-sqlalchemy.pocoo.org/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
 - [Flask_Mongoengine 0.9.5](http://docs.mongoengine.org/projects/flask-mongoengine/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
 
