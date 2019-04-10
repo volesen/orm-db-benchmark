@@ -1,5 +1,4 @@
-# ORM benchmarking in a REST server context
-Python REST server "setups" are benchmarked with an emphasises on ORM/ODM and JSON serializers.
+# Python REST stack benchmark
 
 In this benchmark the following databases are tested:
 - Sqlite3
@@ -13,23 +12,30 @@ and the following ORM/ODM with wrappers:
 - Flask_Mongoengine with Flask and Marshmallow
 
 For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
-- Serialization of 100, 1,000, 10,000 and 100,000 objects (by a LIMIT query)
 - Serialization of 10 objects by pagination
 
-## Benchmarking methodology
+The benchmark results can be replicated with the following
 
+```bash
+$ docker-compose -d up
+$ pipenv intall
+$ pipenv shell
+$ python test_server_serialization.py
+```
+
+## Benchmarking methodology
+For each ORM/ODM and DB pair, the application is dockerized and served thorugh the Gunicorn as a wsgi-server.
 
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
-The time spent is measured using cURL through pycURL inspired by
+The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
 - http://blog.cloudflare.com/a-question-of-timing/
 - http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
 
 
 
-<sup id="a1">[1](#f1)</sup>
-
 ### Model
 
+![UML diagram of model](model.png)
 
 One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
 
@@ -42,6 +48,7 @@ The minimum time gives an estimate for a lower bound on process time.
 
 
 
+<sup id="a1">[1](#f1)</sup>
 
 <hr>
 

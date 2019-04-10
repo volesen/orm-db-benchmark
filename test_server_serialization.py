@@ -52,10 +52,9 @@ def format_results(results):
 
     Returns:
         String with min, max, mean and std of reques times
-
     '''
 
-    return f'min {min(results)}, max {max(results)}, mean {mean(results)}, std {stdev(results)} (average of {len(results)})'
+    return f'''min {min(results)}, max {max(results)}, mean {mean(results)}, std {stdev(results)} (average of {len(results)})'''
 
 
 endpoints = {
