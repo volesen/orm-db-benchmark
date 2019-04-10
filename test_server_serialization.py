@@ -54,7 +54,7 @@ def format_results(results):
         String with min, max, mean and std of reques times
     '''
 
-    return f'''min {min(results)}, max {max(results)}, mean {mean(results)}, std {stdev(results)} (average of {len(results)})'''
+    return f'min {min(results)}, max {max(results)}, mean {mean(results)}, std {stdev(results)} (average of {len(results)})'
 
 
 endpoints = {
@@ -70,7 +70,7 @@ endpoints = {
 
 
 # Measure server request process time for given endpoints
-N = 10
+N = 20
 for kv in endpoints.items():
     service, endpoint = kv
 

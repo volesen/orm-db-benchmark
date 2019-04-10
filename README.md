@@ -1,5 +1,4 @@
 # Python REST stack benchmark
-
 In this benchmark the following databases are tested:
 - Sqlite3
 - PostgreSQL 11.1
@@ -18,7 +17,6 @@ The benchmark results can be replicated with the following
 
 ```bash
 $ docker-compose -d up
-$ pipenv intall
 $ pipenv shell
 $ python test_server_serialization.py
 ```
@@ -32,24 +30,30 @@ The time spent processing a request is estimated using cURL through pycURL as `T
 - http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl
 
 
-
 ### Model
+The model used is as follows<sup id="a1">[1](#f1)</sup>
 
 ![UML diagram of model](model.png)
 
-One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
-
 ## Results
-
 The minimum time gives an estimate for a lower bound on process time.
 
+|                                 | mean   | min    | max    | std    |
+|---------------------------------|--------|--------|--------|--------|
+| Flask, Mongoengine (Embedding)  | 1.028  | 1.018  | 1.044  | 0.0068 |
+| Flask, Mongoengine, (Reference) | 1.651  | 1.629  | 1.677  | 0.015  |
+| Flask, SQLAlchemy, PostgreSQL   | 0.6571 | 0.6408 | 0.7192 | 0.017  |
+| Flask, SQLAChemy, SQLite        | 0.7282 | 0.7134 | 0.7436 | 0.0094 |
+| Flask, Peewee, PostgreSQL       | 0.5534 | 0.5322 | 0.5799 | 0.015  |
+| Flask, Peewee, SQLite           | 0.5873 | 0.5433 | 0.5873 | 0.014  |
+| Django, PostgreSQL              | 1.086  | 1.039  | 1.221  | 0.055  |
+| Django, SQLite                  | 0.6706 | 0.6528 | 0.7387 | 0.019  |
 
 ## Conclusion
 
 
 
-<sup id="a1">[1](#f1)</sup>
-
 <hr>
 
-<b id="f1">1</b> Footnote [↩](#a1)
+<b id="f1">1</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
+ [↩](#a1)
