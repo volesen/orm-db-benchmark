@@ -62,8 +62,9 @@ In terms of loading models dependent on several degrees of relationships, some c
 This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
 
 ## Conclusion
+In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
 
-Nothing really. Only results
+Suprisingly, the reuslts indicate that Peewee is the more performant than SQLAlchemy in this context.
 
 ## Footnotes
 <b id="f1">1</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
