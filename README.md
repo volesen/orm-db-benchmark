@@ -1,4 +1,5 @@
-# Python REST stack benchmark
+# NoSQL vs SQL becnhmark in a Python REST stack context
+
 Introduction – Write about reason behind this blog. Why was it so important to test so many ORMs and Databases? What abut battle between SQL vs NoSQL. And why Django was so slow. You have to grab a reader attention withing first few sentences.
 
 In this benchmark the following databases are tested:
