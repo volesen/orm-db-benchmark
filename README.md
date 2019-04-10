@@ -34,7 +34,6 @@ The time spent processing a request is estimated using cURL through pycURL as `T
 
 ### Model
 The model used is as follows<sup id="a2">[2](#f2)</sup>
-
 ![UML diagram of model](model.png)
 
 The number of rows are as follows:
@@ -75,4 +74,4 @@ Suprisingly, the results indicate that Peewee is the more performant than SQLAlc
 ## Footnotes
 <b id="f1">1</b> Using ORM/ODM pagination [↩](#a1)
 
-<b id="f2">2</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB. [↩](#a2)
+<b id="f2">2</b> One-to-many relationships are modeled by [embedded documents](https://docs.mongodb.com/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/) and [reference fields](https://docs.mongodb.com/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/) respectivly for MongoDB. [↩](#a2)
