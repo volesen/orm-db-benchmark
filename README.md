@@ -46,6 +46,8 @@ A serialization of an author object would there requiere serialization of 1000 t
 ## Results
 The results are based on n = 20 measurements for each stack.
 
+The time spent serializing 10 authors objects using pagination is as follow
+
 | Server | ORM/ODM                 | Serializer            | DB         | mean   | min    | max    | std    |
 |--------|-------------------------|-----------------------|------------|--------|--------|--------|--------|
 | Flask  | Mongoengine (Embedding) | Marshmallow           | MongoDB    | 1.028  | 1.018  | 1.044  | 0.0068 |
@@ -57,7 +59,18 @@ The results are based on n = 20 measurements for each stack.
 | Django | Django ORM              | Django Rest Framework | PostgreSQL | 1.086  | 1.039  | 1.221  | 0.055  |
 | Django | Django ORM              | Django Rest Framework | Sqlite     | 0.6706 | 0.6528 | 0.7387 | 0.019  |
 
-The minimum time gives an estimate for a lower bound on process time.
+The time spent serializing (10, 100, 1.000, 10.000 and 100.000) author objects by `LIMIT` query is as follow
+
+| Server | ORM/ODM                 | Serializer            | DB         | 10     | 100    | 1.000  | 10.000 | 100.000 |
+|--------|-------------------------|-----------------------|------------|--------|--------|--------|--------|---------|
+| Flask  | Mongoengine (Embedding) | Marshmallow           | MongoDB    | 1.173  | 1.141  | 1.114  | 1.174  | 1.181   |
+| Flask  | Mongoengine (Reference) | Marshmallow           | MongoDB    | 1.847  | 1.776  | 1.770  | 1.904  | 1.925   |
+| Flask  | SQLAlchemy              | Marshmallow           | PostgreSQL | 0.7380 | 0.7087 | 0.7052 | 0.7407 | 0.7770  |
+| Flask  | SQLAlchemy              | Marshmallow           | Sqlite     | 0.8477 | 0.7877 | 0.7886 | 0.8047 | 0.8736  |
+| Flask  | Peewee                  | Marshmallow           | PostgreSQL | 0.6259 | 0.6056 | 0.6012 | 0.6403 | 0.6417  |
+| Flask  | Peewee                  | Marshmallow           | Sqlite     | 0.6323 | 0.6072 | 0.6061 | 0.6185 | 0.6450  |
+| Django | Django ORM              | Django Rest Framework | PostgreSQL | 1.208  | 1.126  | 1.127  | 1.160  | 1.162   |
+| Django | Django ORM              | Django Rest Framework | Sqlite     | 0.7345 | 0.7169 | 0.7233 | 0.7635 | 0.7654  |
 
 
 ## Caution (Remarks)
@@ -66,6 +79,8 @@ This can be achived by eager-loading in SQLAlchemy, where as it can be done by p
 
 
 ## Conclusion
+Is can be observed that serializing a bigger amount of objects does not change the serialization time significantly. The database and interactions could therefore be the bottleneck - not the rest of the REST stack.
+
 In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
 
 Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
