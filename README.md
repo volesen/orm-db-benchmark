@@ -14,7 +14,7 @@ and the following ORM/ODM with thin wrappers:
 - [Flask_Mongoengine 0.9.5](http://docs.mongoengine.org/projects/flask-mongoengine/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow 2.19.1](https://marshmallow.readthedocs.io/)
 
 For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
-- Serialization of 10 objects by pagination
+- Serialization of 10 objects by pagination<sup id="a1">[1](#f1)</sup>
 - Serialization of (10, 100, 1.000, 10.000 and 100.000) objects by `LIMIT` query
 
 
@@ -36,7 +36,7 @@ The time spent processing a request is estimated using cURL through pycURL as `T
 
 
 ### Model
-The model used is as follows<sup id="a1">[1](#f1)</sup>
+The model used is as follows<sup id="a2">[2](#f2)</sup>
 
 ![UML diagram of model](model.png)
 
@@ -72,5 +72,5 @@ In terms of choosing a REST stack for an API, some consideration has to be made 
 Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
 
 ## Footnotes
-<b id="f1">1</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
- [↩](#a1)
+<b id="f1">1</b> Using ORM/ODM pagination [↩](#a1)
+<b id="f2">2</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB. [↩](#a2)
