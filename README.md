@@ -1,8 +1,11 @@
 # Python REST stack benchmark
+
+Introduction – Write about reason behind this blog. Why was it so important to test so many ORMs and Databases? What abut battle between SQL vs NoSQL. And why Django was so slow. You have to grab a reader attention withing first few sentences.
+
 In this benchmark the following databases are tested:
-- Sqlite3
-- PostgreSQL 11.1
-- MongoDB 3.4.19
+- (Sqlite 3.27.2)[https://www.sqlite.org/]
+- (PostgreSQL 11.1)[https://hub.docker.com/_/postgres]
+- (MongoDB 3.4.19)[https://hub.docker.com/_/mongo]
 
 and the following ORM/ODM with wrappers:
 - Django ORM with Django Rest Framework
@@ -12,6 +15,8 @@ and the following ORM/ODM with wrappers:
 
 For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
 - Serialization of 10 objects by pagination
+- Serialization of (10, 100, 1.000, 10.000 and 100.000) objects by `LIMIT` query
+
 
 The benchmark results can be replicated with the following
 
@@ -22,7 +27,7 @@ $ python benchmark_serialization.py
 ```
 
 ## Benchmarking methodology
-For each ORM/ODM and DB pair, the application is dockerized and served thorugh the Gunicorn as a wsgi-server.
+For each ORM/ODM and DB pair, the application is dockerized and served through the (Gunicorn 19.9.0)[https://gunicorn.org/] as a wsgi-server.
 
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
 The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
@@ -44,16 +49,16 @@ The number of rows are as follows:
 
 The results are based on 20 measurements for each stack.
 
-|                                                   | mean   | min    | max    | std    |
-|---------------------------------------------------|--------|--------|--------|--------|
-| Flask, Mongoengine (Embed.), Marshmallow, MongoDB | 1.028  | 1.018  | 1.044  | 0.0068 |
-| Flask, Mongoengine (Ref.), Marshmallow, MongoDB   | 1.651  | 1.629  | 1.677  | 0.015  |
-| Flask, SQLAlchemy, Marshmallow, PostgreSQL        | 0.6571 | 0.6408 | 0.7192 | 0.017  |
-| Flask, SQLAlchemy, Marshmallow, SQLite            | 0.7282 | 0.7134 | 0.7436 | 0.0094 |
-| Flask, Peewee, Marshmallow, PostgreSQL            | 0.5534 | 0.5322 | 0.5799 | 0.015  |
-| Flask, Peewee, Marshmallow, SQLite                | 0.5873 | 0.5433 | 0.5873 | 0.014  |
-| Django/ORM, Django Rest Framework, PostgreSQL     | 1.086  | 1.039  | 1.221  | 0.055  |
-| Django/ORM, Django Rest Framework, SQLite         | 0.6706 | 0.6528 | 0.7387 | 0.019  |
+| Server | ORM/ODM                 | Serializer            | DB         | mean   | min    | max    | std    |
+|--------|-------------------------|-----------------------|------------|--------|--------|--------|--------|
+| Flask  | Mongoengine (Embedding) | Marshmallow           | MongoDB    | 1.028  | 1.018  | 1.044  | 0.0068 |
+| Flask  | Mongoengine (Reference) | Marshmallow           | MongoDB    | 1.651  | 1.629  | 1.677  | 0.015  |
+| Flask  | SQLAlchemy              | Marshmallow           | PostgreSQL | 0.6571 | 0.6408 | 0.7192 | 0.017  |
+| Flask  | SQLAlchemy              | Marshmallow           | Sqlite     | 0.7282 | 0.7134 | 0.7436 | 0.0094 |
+| Flask  | Peewee                  | Marshmallow           | PostgreSQL | 0.5534 | 0.5322 | 0.5799 | 0.015  |
+| Flask  | Peewee                  | Marshmallow           | Sqlite     | 0.5873 | 0.5433 | 0.5873 | 0.014  |
+| Django | Django ORM              | Django Rest Framework | PostgreSQL | 1.086  | 1.039  | 1.221  | 0.055  |
+| Django | Django ORM              | Django Rest Framework | Sqlite     | 0.6706 | 0.6528 | 0.7387 | 0.019  |
 
 The minimum time gives an estimate for a lower bound on process time.
 
@@ -64,7 +69,7 @@ This can be achived by eager-loading in SQLAlchemy, where as it can be done by p
 ## Conclusion
 In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
 
-Suprisingly, the reuslts indicate that Peewee is the more performant than SQLAlchemy in this context.
+Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
 
 ## Footnotes
 <b id="f1">1</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.

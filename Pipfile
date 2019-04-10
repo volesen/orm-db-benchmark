@@ -19,7 +19,6 @@ django = "*"
 djangorestframework = "*"
 gunicorn = "*"
 pycurl = "*"
-stringio = "*"
 dj-database-url = "*"
 peewee = "*"
 
