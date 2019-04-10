@@ -29,7 +29,7 @@ For each ORM/ODM and DB pair, the application is dockerized and served through t
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
 The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
 - [Cloudflare - A Question of Timing](http://blog.cloudflare.com/a-question-of-timing/)
-- [Stackoverflow - Calculating Server Processing Time With Curl](http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl)s
+- [Stackoverflow - Calculating Server Processing Time With Curl](http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl)
 
 
 ### Model
