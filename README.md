@@ -1,4 +1,5 @@
 # NoSQL vs SQL becnhmark in a Python REST stack context
+While testing Django REST Framework with it's quickstart guide,
 
 Introduction – Write about reason behind this blog. Why was it so important to test so many ORMs and Databases? What abut battle between SQL vs NoSQL. And why Django was so slow. You have to grab a reader attention withing first few sentences.
 
@@ -76,8 +77,10 @@ The time spent serializing (10, 100, 1.000, 10.000 and 100.000) author objects b
 | Django | Django ORM              | Django Rest Framework | Sqlite     | 0.7345 | 0.7169 | 0.7233 | 0.7635 | 0.7654  |
 
 
+In terms of Django with Django ORM and Django REST Framework, using prefetching, speed up processing time by almost one order of magnitude (following the )
+
 ## Caution (Remarks)
-In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the N+1 problem.
+In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the [N+1](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping) problem.
 This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
 
 
