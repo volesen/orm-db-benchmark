@@ -73,4 +73,5 @@ Suprisingly, the results indicate that Peewee is the more performant than SQLAlc
 
 ## Footnotes
 <b id="f1">1</b> Using ORM/ODM pagination [↩](#a1)
+
 <b id="f2">2</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB. [↩](#a2)
