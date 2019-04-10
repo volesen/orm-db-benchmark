@@ -1,5 +1,5 @@
 # NoSQL vs SQL becnhmark in a Python REST stack context
-While blindly testing Django REST Framework with it's quickstart guide on a relationship-heavy model, the performance was poor. This sparked a benchmark of REST server stacks including servers, ORM/ODMs, serializers and databases and methods for avoiding the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping) in this context.
+While blindly testing Django REST Framework with it's quickstart guide on a relationship-heavy model, the performance was poor. This sparked a benchmark of common REST server stacks including servers, ORM/ODMs, serializers and databases and methods for avoiding the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping) for each of these.
 
 In this benchmark the following databases are tested:
 - [Sqlite 3.27.2](https://www.sqlite.org/)
@@ -18,6 +18,8 @@ For each compatible ORM/ODM and DB pair the following things are benchmarked:
 
 The benchmark results can be replicated with the following
 ```bash
+$ git clone https://github.com/volesen/orm-db-benchmark.git
+$ cd orm-db-benchmark
 $ docker-compose -d up
 $ pipenv shell
 $ python benchmark_serialization.py
