@@ -16,7 +16,6 @@ For each compatible ORM/ODM and DB pair the following things are benchmarked:
 - Serialization of 10 objects by pagination<sup id="a1">[1](#f1)</sup>
 - Serialization of (10, 100, 1.000, 10.000 and 100.000) objects by `LIMIT` query
 
-
 The benchmark results can be replicated with the following
 ```bash
 $ docker-compose -d up
@@ -43,6 +42,7 @@ The number of rows are as follows:
 - 100 albums per author
 - 10 tracks per album
 
+A serialization of an author object would there requiere serialization of 1000 track objects.
 
 ## Results
 The results are based on n = 20 measurements for each stack.
@@ -61,7 +61,7 @@ The results are based on n = 20 measurements for each stack.
 The minimum time gives an estimate for a lower bound on process time.
 
 
-## Remarks
+## Caution (Remarks)
 In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the N+1 problem.
 This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
 
