@@ -1,5 +1,5 @@
 # NoSQL vs SQL becnhmark in a Python REST stack context
-While blindly testing Django REST Framework with it's quickstart guide on a relationship-heavy model, the performance was poor. This sparked a benchmark of common REST server stacks including servers, ORM/ODMs, serializers and databases and methods for avoiding the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping) for each of these.
+While blindly testing Django REST Framework with it's quickstart guide on a model with nested one-to-many relationships the performance was poor. This sparked a benchmark of common REST server stacks (servers, ORM/ODMs, serializers and databases) and methods for avoiding the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping) for each of these.
 
 In this benchmark the following databases are tested:
 - [Sqlite 3.27.2](https://www.sqlite.org/)
@@ -81,7 +81,7 @@ In terms of Django with Django ORM and Django REST Framework, using prefetching,
 
 ## Caution (Remarks)
 In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping).
-This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
+This can be achived by eager-loading with `joinedload` in SQLAlchemy, where as it can be done by `prefetch` for Peewee and  `prefetch_related` for Django.
 
 
 ## Conclusion
