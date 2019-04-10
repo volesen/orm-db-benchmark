@@ -7,11 +7,11 @@ In this benchmark the following databases are tested:
 - [PostgreSQL 11.1](https://hub.docker.com/_/postgres)
 - [MongoDB 3.4.19](https://hub.docker.com/_/mongo)
 
-and the following ORM/ODM with wrappers:
-- Django ORM with Django Rest Framework
-- Peewee with Flask and Marshmallow
-- Flask_SQLAlcehmy with Flask and Marshmallow
-- Flask_Mongoengine with Flask and Marshmallow
+and the following ORM/ODM with thin wrappers:
+- [Django 2.1.7](https://djangoproject.com/) with [Django Rest Framework](https://django-rest-framework.org/)
+- [Peewee 3.9.3](gttps://peewee-orm.com/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
+- [Flask_SQLAlcehmy 2.3.2](http://flask-sqlalchemy.pocoo.org/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
+- [Flask_Mongoengine 0.9.5](http://docs.mongoengine.org/projects/flask-mongoengine/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow](https://marshmallow.readthedocs.io/)
 
 For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
 - Serialization of 10 objects by pagination
@@ -27,7 +27,7 @@ $ python benchmark_serialization.py
 ```
 
 ## Benchmarking methodology
-For each ORM/ODM and DB pair, the application is dockerized and served through the (Gunicorn 19.9.0)[https://gunicorn.org/] as a wsgi-server.
+For each ORM/ODM and DB pair, the application is dockerized and served through the [Gunicorn 19.9.0](https://gunicorn.org/) as a wsgi-server.
 
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
 The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
