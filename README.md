@@ -63,7 +63,7 @@ The results are based on 20 measurements for each stack.
 The minimum time gives an estimate for a lower bound on process time.
 
 ## Remarks
-In terms of loading models dependent on several degrees of relationships, some conserations have to be made to avoid the N+1 problem.
+In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the N+1 problem.
 This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
 
 ## Conclusion
