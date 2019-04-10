@@ -34,8 +34,10 @@ The time spent processing a request is estimated using cURL through pycURL as `T
 
 
 ### Model
-The model used is as follows<sup id="a2">[2](#f2)</sup>
+The model used is as follows
 ![UML diagram of model](model.png)
+
+One-to-many relationships are modeled by [embedded documents](https://docs.mongodb.com/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/) and [reference fields](https://docs.mongodb.com/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/) respectivly for MongoDB.
 
 The number of rows are as follows:
 - 100 authors
@@ -80,14 +82,14 @@ This can be achived by eager-loading in SQLAlchemy, where as it can be done by p
 
 
 ## Conclusion
-Is can be observed that serializing a bigger amount of objects does not change the serialization time significantly. The database and interactions could therefore be the bottleneck - not the rest of the REST stack.
+- Is can be observed that serializing a bigger amount of objects does not change the serialization time significantly.<sup id="a2">[2](#f2)</sup> The database and interactions could therefore be the bottleneck - not the rest of the REST stack.
 
-In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
+- In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
 
-Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
+- Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
 
 
 ## Footnotes
 <b id="f1">1</b> Using ORM/ODM pagination [↩](#a1)
 
-<b id="f2">2</b> One-to-many relationships are modeled by [embedded documents](https://docs.mongodb.com/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/) and [reference fields](https://docs.mongodb.com/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/) respectivly for MongoDB. [↩](#a2)
+<b id="f2">2</b> And even fluctuates [↩](#a2)
