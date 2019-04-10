@@ -3,9 +3,9 @@
 Introduction – Write about reason behind this blog. Why was it so important to test so many ORMs and Databases? What abut battle between SQL vs NoSQL. And why Django was so slow. You have to grab a reader attention withing first few sentences.
 
 In this benchmark the following databases are tested:
-- (Sqlite 3.27.2)[https://www.sqlite.org/]
-- (PostgreSQL 11.1)[https://hub.docker.com/_/postgres]
-- (MongoDB 3.4.19)[https://hub.docker.com/_/mongo]
+- [Sqlite 3.27.2](https://www.sqlite.org/)
+- [PostgreSQL 11.1](https://hub.docker.com/_/postgres)
+- [MongoDB 3.4.19](https://hub.docker.com/_/mongo)
 
 and the following ORM/ODM with wrappers:
 - Django ORM with Django Rest Framework
