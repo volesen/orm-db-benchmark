@@ -18,7 +18,7 @@ The benchmark results can be replicated with the following
 ```bash
 $ docker-compose -d up
 $ pipenv shell
-$ python test_server_serialization.py
+$ python benchmark_serialization.py
 ```
 
 ## Benchmarking methodology
@@ -35,34 +35,35 @@ The model used is as follows<sup id="a1">[1](#f1)</sup>
 
 ![UML diagram of model](model.png)
 
+The number of rows are as follows:
+- 100 authors
+- 100 albums per author
+- 10 tracks per album
 
 ## Results
 
 The results are based on 20 measurements for each stack.
 
-|                                               | mean   | min    | max    | std    |
-|-----------------------------------------------|--------|--------|--------|--------|
-| Flask, Mongoengine (E), Marshmallow, MongoDB  | 1.028  | 1.018  | 1.044  | 0.0068 |
-| Flask, Mongoengine (R), Marshmallow, MongoDB  | 1.651  | 1.629  | 1.677  | 0.015  |
-| Flask, SQLAlchemy, Marshmallow, PostgreSQL    | 0.6571 | 0.6408 | 0.7192 | 0.017  |
-| Flask, SQLAClhemy, Marshmallow, SQLite        | 0.7282 | 0.7134 | 0.7436 | 0.0094 |
-| Flask, Peewee, Marshmallow, PostgreSQL        | 0.5534 | 0.5322 | 0.5799 | 0.015  |
-| Flask, Peewee, Marshmallow, SQLite            | 0.5873 | 0.5433 | 0.5873 | 0.014  |
-| Django/ORM, Django Rest Framework, PostgreSQL | 1.086  | 1.039  | 1.221  | 0.055  |
-| Django/ORM, Django Rest Framework, SQLite     | 0.6706 | 0.6528 | 0.7387 | 0.019  |
+|                                                   | mean   | min    | max    | std    |
+|---------------------------------------------------|--------|--------|--------|--------|
+| Flask, Mongoengine (Embed.), Marshmallow, MongoDB | 1.028  | 1.018  | 1.044  | 0.0068 |
+| Flask, Mongoengine (Ref.), Marshmallow, MongoDB   | 1.651  | 1.629  | 1.677  | 0.015  |
+| Flask, SQLAlchemy, Marshmallow, PostgreSQL        | 0.6571 | 0.6408 | 0.7192 | 0.017  |
+| Flask, SQLAlchemy, Marshmallow, SQLite            | 0.7282 | 0.7134 | 0.7436 | 0.0094 |
+| Flask, Peewee, Marshmallow, PostgreSQL            | 0.5534 | 0.5322 | 0.5799 | 0.015  |
+| Flask, Peewee, Marshmallow, SQLite                | 0.5873 | 0.5433 | 0.5873 | 0.014  |
+| Django/ORM, Django Rest Framework, PostgreSQL     | 1.086  | 1.039  | 1.221  | 0.055  |
+| Django/ORM, Django Rest Framework, SQLite         | 0.6706 | 0.6528 | 0.7387 | 0.019  |
 
 The minimum time gives an estimate for a lower bound on process time.
 
-
 ## Remarks
-In terms of loading relationship-heavy data, several techniques can be used
-
+In terms of loading models dependent on several degrees of relationships, some conserations have to be made to avoid the N+1 problem.
+This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
 
 ## Conclusion
 
-In terms 
-
-
+Nothing really. Only results
 
 ## Footnotes
 <b id="f1">1</b> One-to-many relationships are modeled by embedded documents and reference fields respectivly for MongoDB.
