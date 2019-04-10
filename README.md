@@ -1,5 +1,4 @@
 # Python REST stack benchmark
-
 Introduction – Write about reason behind this blog. Why was it so important to test so many ORMs and Databases? What abut battle between SQL vs NoSQL. And why Django was so slow. You have to grab a reader attention withing first few sentences.
 
 In this benchmark the following databases are tested:
@@ -13,13 +12,12 @@ and the following ORM/ODM with thin wrappers:
 - [Flask_SQLAlcehmy 2.3.2](http://flask-sqlalchemy.pocoo.org/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow 2.19.1](https://marshmallow.readthedocs.io/)
 - [Flask_Mongoengine 0.9.5](http://docs.mongoengine.org/projects/flask-mongoengine/) with [Flask 1.0.2](http://flask.pocoo.org/) and [Marshmallow 2.19.1](https://marshmallow.readthedocs.io/)
 
-For each ORM/ODM and DB pair (ORMs and MongoDB) the following things are benchmarked:
+For each compatible ORM/ODM and DB pair the following things are benchmarked:
 - Serialization of 10 objects by pagination<sup id="a1">[1](#f1)</sup>
 - Serialization of (10, 100, 1.000, 10.000 and 100.000) objects by `LIMIT` query
 
 
 The benchmark results can be replicated with the following
-
 ```bash
 $ docker-compose -d up
 $ pipenv shell
@@ -32,7 +30,7 @@ For each ORM/ODM and DB pair, the application is dockerized and served through t
 Testing script measuring time (an estimate) for processing and serialization of DB content for a server
 The time spent processing a request is estimated using cURL through pycURL as `TIME_STARTTRANSFER - TIME_CONNECT` inspired by
 - [Cloudflare - A Question of Timing](http://blog.cloudflare.com/a-question-of-timing/)
-- [Stackocerflow - Calculating Server Processing Time With Curl](http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl)
+- [Stackoverflow - Calculating Server Processing Time With Curl](http://stackoverflow.com/questions/17638026/calculating-server-processing-time-with-curl)s
 
 
 ### Model
@@ -45,9 +43,9 @@ The number of rows are as follows:
 - 100 albums per author
 - 10 tracks per album
 
-## Results
 
-The results are based on 20 measurements for each stack.
+## Results
+The results are based on n = 20 measurements for each stack.
 
 | Server | ORM/ODM                 | Serializer            | DB         | mean   | min    | max    | std    |
 |--------|-------------------------|-----------------------|------------|--------|--------|--------|--------|
@@ -62,14 +60,17 @@ The results are based on 20 measurements for each stack.
 
 The minimum time gives an estimate for a lower bound on process time.
 
+
 ## Remarks
 In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the N+1 problem.
 This can be achived by eager-loading in SQLAlchemy, where as it can be done by prefetching for Peewee and Django.
+
 
 ## Conclusion
 In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
 
 Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
+
 
 ## Footnotes
 <b id="f1">1</b> Using ORM/ODM pagination [↩](#a1)
