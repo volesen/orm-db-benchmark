@@ -63,7 +63,7 @@ The time spent serializing 10 authors objects using pagination is as follow
 | Django | Django ORM              | Django Rest Framework | PostgreSQL | 1.086  | 1.039  | 1.221  | 0.055  |
 | Django | Django ORM              | Django Rest Framework | Sqlite     | 0.6706 | 0.6528 | 0.7387 | 0.019  |
 
-The time spent serializing (10, 100, 1.000, 10.000 and 100.000) author objects by `LIMIT` query is as follow
+The mean time spent serializing (10, 100, 1.000, 10.000 and 100.000) author objects by `LIMIT` query is as follow
 
 | Server | ORM/ODM                 | Serializer            | DB         | 10     | 100    | 1.000  | 10.000 | 100.000 |
 |--------|-------------------------|-----------------------|------------|--------|--------|--------|--------|---------|
@@ -76,8 +76,7 @@ The time spent serializing (10, 100, 1.000, 10.000 and 100.000) author objects b
 | Django | Django ORM              | Django Rest Framework | PostgreSQL | 1.208  | 1.126  | 1.127  | 1.160  | 1.162   |
 | Django | Django ORM              | Django Rest Framework | Sqlite     | 0.7345 | 0.7169 | 0.7233 | 0.7635 | 0.7654  |
 
-
-In terms of Django with Django ORM and Django REST Framework, using prefetching, speed up processing time by almost one order of magnitude (following the )
+In terms of Django with Django ORM and Django REST Framework, using `prefetch_related`, speed up processing time by almost one order of magnitude, compared to using `Author.objects.all()`.
 
 ## Caution (Remarks)
 In terms of loading models dependent on several degrees of relationships, some consideration has to be made, to avoid the [N+1 problem](https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping).
