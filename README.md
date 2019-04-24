@@ -84,10 +84,8 @@ This can be achived by eager-loading with `joinedload` in SQLAlchemy, where as i
 
 
 ## Conclusion
-- Is can be observed that serializing a bigger amount of objects does not change the serialization time significantly.<sup id="a2">[2](#f2)</sup> The database and interactions could therefore be the bottleneck - not the rest of the REST stack.
-
+- Generally, it can be observed that serializing a bigger amount of objects does not change the serialization time significantly.<sup id="a2">[2](#f2)</sup> The database and interactions could therefore be the bottleneck - not the rest of the REST stack.
 - In terms of choosing a REST stack for an API, some consideration has to be made when using MongoDB, wheter to use embedding or referencing for relationships, as embedding is more performant.
-
 - Suprisingly, the results indicate that Peewee is the more performant than SQLAlchemy in this context.
 
 
